@@ -42,14 +42,19 @@ export const PaymentItem = ({payment, onToggle, onRemove}) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: colors.surface,
-    borderRadius: 8,
-    padding: spacing[3],
+    backgroundColor: colors.surfaceElevated,
+    borderRadius: 16,
+    padding: spacing[4],
     marginHorizontal: spacing[3],
     marginVertical: spacing[2],
     borderWidth: 1,
     borderColor: colors.border,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4,
   },
   content: {
     flex: 1,
@@ -57,16 +62,21 @@ const styles = StyleSheet.create({
   name: {
     ...typography.heading,
     color: colors.textPrimary,
+    fontSize: 17,
+    fontWeight: '700',
     marginBottom: spacing[1],
   },
   phone: {
     ...typography.phone,
     color: colors.textSecondary,
-    marginBottom: spacing[1],
+    fontSize: 14,
+    marginBottom: spacing[2],
   },
   time: {
-    ...typography.caption,
+    fontSize: 12,
     color: colors.textSecondary,
+    fontWeight: '500',
+    opacity: 0.7,
   },
   rightSection: {
     alignItems: 'flex-end',
@@ -74,19 +84,26 @@ const styles = StyleSheet.create({
   },
   statusBadge: {
     paddingVertical: spacing[2],
-    paddingHorizontal: spacing[3],
-    borderRadius: 6,
+    paddingHorizontal: spacing[4],
+    borderRadius: 10,
     marginBottom: spacing[2],
+    borderWidth: 1,
+    borderColor: 'transparent',
+    minWidth: 90,
+    alignItems: 'center',
   },
   gotBadge: {
-    backgroundColor: colors.success + '20',
+    backgroundColor: colors.success + '15',
+    borderColor: colors.success + '30',
   },
   notGotBadge: {
-    backgroundColor: colors.muted + '30',
+    backgroundColor: colors.muted + '20',
+    borderColor: colors.border,
   },
   statusText: {
-    ...typography.caption,
-    fontWeight: '600',
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 0.5,
   },
   gotText: {
     color: colors.success,
@@ -96,9 +113,13 @@ const styles = StyleSheet.create({
   },
   removeButton: {
     paddingVertical: spacing[1],
+    paddingHorizontal: spacing[2],
   },
   removeText: {
-    ...typography.caption,
+    fontSize: 11,
+    fontWeight: '700',
     color: colors.danger,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
 });

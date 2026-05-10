@@ -81,7 +81,10 @@ export const PaymentsScreen = () => {
         data={filteredPayments}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        contentContainerStyle={filteredPayments.length === 0 && styles.emptyContainer}
+        contentContainerStyle={[
+          styles.listContent,
+          filteredPayments.length === 0 && styles.emptyContainer
+        ]}
         ListEmptyComponent={
           <EmptyState message="No payments yet. Add notes to leads to track payments." />
         }
@@ -97,31 +100,39 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     flexDirection: 'row',
-    padding: spacing[3],
+    paddingHorizontal: spacing[4],
+    paddingVertical: spacing[3],
     gap: spacing[2],
   },
   filterTab: {
     flex: 1,
     paddingVertical: spacing[2],
-    borderRadius: 6,
-    backgroundColor: colors.surface,
+    borderRadius: 10,
+    backgroundColor: colors.surfaceElevated,
     borderWidth: 1,
     borderColor: colors.border,
     alignItems: 'center',
+    height: 40,
+    justifyContent: 'center',
   },
   filterTabActive: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.accent + '20',
     borderColor: colors.accent,
   },
   filterText: {
-    ...typography.caption,
+    fontSize: 13,
+    fontWeight: '600',
     color: colors.textSecondary,
   },
   filterTextActive: {
-    color: '#FFFFFF',
-    fontWeight: '600',
+    color: colors.accent,
+    fontWeight: '700',
+  },
+  listContent: {
+    paddingBottom: spacing[4],
   },
   emptyContainer: {
     flexGrow: 1,
+    justifyContent: 'center',
   },
 });

@@ -56,6 +56,18 @@ export const removeLead = leadId => {
   saveLeads(leads);
 };
 
+export const deleteLead = leadId => {
+  const leads = getLeads().filter(l => l.id !== leadId);
+  saveLeads(leads);
+};
+
+export const updateLeadName = (leadId, newName) => {
+  const leads = getLeads().map(lead =>
+    lead.id === leadId ? {...lead, name: newName} : lead,
+  );
+  saveLeads(leads);
+};
+
 export const getPayments = () => {
   const data = storage.getString(KEYS.PAYMENTS);
   return data ? JSON.parse(data) : [];

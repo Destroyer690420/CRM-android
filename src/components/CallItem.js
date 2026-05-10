@@ -9,9 +9,9 @@ export const CallItem = ({call, onTick, onCross}) => {
   const getCallTypeLabel = type => {
     switch (type) {
       case 'INCOMING':
-        return 'IN';
+        return 'INCOMING';
       case 'OUTGOING':
-        return 'OUT';
+        return 'OUTGOING';
       case 'MISSED':
         return 'MISSED';
       default:
@@ -35,14 +35,14 @@ export const CallItem = ({call, onTick, onCross}) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftContent}>
-        <View style={styles.nameRow}>
+        <View style={styles.header}>
           <Text style={styles.name} numberOfLines={1}>
             {call.name || 'Unknown'}
           </Text>
           <View
             style={[
               styles.typeBadge,
-              {backgroundColor: getCallTypeColor(call.type) + '20'},
+              {backgroundColor: getCallTypeColor(call.type) + '15'},
             ]}>
             <Text
               style={[styles.typeText, {color: getCallTypeColor(call.type)}]}>
@@ -51,22 +51,28 @@ export const CallItem = ({call, onTick, onCross}) => {
           </View>
         </View>
         <Text style={styles.phone}>{call.phone}</Text>
-        <Text style={styles.details}>
-          {formatDuration(call.duration)} - {formatRelativeTime(call.timestamp)}
-        </Text>
+        <View style={styles.footer}>
+          <Text style={styles.details}>
+            {formatDuration(call.duration)}
+          </Text>
+          <Text style={styles.dot}>•</Text>
+          <Text style={styles.details}>
+            {formatRelativeTime(call.timestamp)}
+          </Text>
+        </View>
       </View>
       <View style={styles.actions}>
         <TouchableOpacity
           style={[styles.actionButton, styles.tickButton]}
           onPress={() => onTick(call)}
           activeOpacity={0.7}>
-          <Text style={styles.tickText}>Tick</Text>
+          <View style={styles.tickIcon} />
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.actionButton, styles.crossButton]}
           onPress={() => onCross(call.id)}
           activeOpacity={0.7}>
-          <Text style={styles.crossText}>X</Text>
+          <Text style={styles.crossText}>×</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -76,18 +82,19 @@ export const CallItem = ({call, onTick, onCross}) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: colors.surface,
-    borderRadius: 8,
-    padding: spacing[3],
+    backgroundColor: colors.surfaceElevated,
+    borderRadius: 16,
+    padding: spacing[4],
     marginHorizontal: spacing[3],
     marginVertical: spacing[2],
     borderWidth: 1,
     borderColor: colors.border,
+    alignItems: 'center',
   },
   leftContent: {
     flex: 1,
   },
-  nameRow: {
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: spacing[1],
@@ -95,26 +102,40 @@ const styles = StyleSheet.create({
   name: {
     ...typography.heading,
     color: colors.textPrimary,
+    fontSize: 17,
+    fontWeight: '700',
     flex: 1,
     marginRight: spacing[2],
   },
   typeBadge: {
     paddingHorizontal: spacing[2],
     paddingVertical: 2,
-    borderRadius: 4,
+    borderRadius: 6,
   },
   typeText: {
-    ...typography.caption,
-    fontWeight: '600',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.5,
   },
   phone: {
     ...typography.phone,
     color: colors.textSecondary,
-    marginBottom: spacing[1],
+    fontSize: 14,
+    marginBottom: spacing[2],
+  },
+  footer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   details: {
-    ...typography.caption,
+    fontSize: 12,
     color: colors.textSecondary,
+    fontWeight: '500',
+  },
+  dot: {
+    marginHorizontal: spacing[1],
+    color: colors.textSecondary,
+    opacity: 0.5,
   },
   actions: {
     flexDirection: 'row',
@@ -122,27 +143,35 @@ const styles = StyleSheet.create({
     marginLeft: spacing[3],
   },
   actionButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: spacing[2],
+    borderWidth: 1,
   },
   tickButton: {
-    backgroundColor: colors.success + '20',
+    backgroundColor: colors.success + '15',
+    borderColor: colors.success + '30',
   },
-  tickText: {
-    color: colors.success,
-    fontWeight: '600',
-    fontSize: 14,
+  tickIcon: {
+    width: 12,
+    height: 8,
+    borderLeftWidth: 2.5,
+    borderBottomWidth: 2.5,
+    borderColor: colors.success,
+    transform: [{rotate: '-45deg'}],
+    marginTop: -2,
   },
   crossButton: {
-    backgroundColor: colors.danger + '20',
+    backgroundColor: colors.danger + '15',
+    borderColor: colors.danger + '30',
   },
   crossText: {
     color: colors.danger,
-    fontWeight: '600',
-    fontSize: 14,
+    fontSize: 22,
+    fontWeight: '400',
+    marginTop: -2,
   },
 });
